@@ -37,10 +37,12 @@ func TestNormalizeArgs(t *testing.T) {
 	assert.Equal(t, res, []interface{}{testJSON, testStr, testInt, testBool, testFloat, testJSONResult, testStruct0Result})
 }
 
+type key string
+
 func TestLogging(t *testing.T) {
 	ctx := context.Background()
-	ctx = context.WithValue(ctx, "requestId", "request-id")
-	ctx = context.WithValue(ctx, "userId", "user-id")
+	ctx = context.WithValue(ctx, key("requestId"), "request-id")
+	ctx = context.WithValue(ctx, key("userId"), "user-id")
 
 	Init(SimpleFormatter, logrus.DebugLevel, "requestId", "userId")
 	Debug(ctx, "Debug Message 1")
