@@ -12,7 +12,7 @@ import (
 
 var (
 	logger    = logrus.New()
-	ctxFields []string
+	ctxFields []interface{}
 )
 
 type Formatter int
@@ -82,7 +82,7 @@ func FormatterFromName(name string) (f Formatter) {
 	return JSONFormatter
 }
 
-func Init(formatter Formatter, level Level, contextFields ...string) {
+func Init(formatter Formatter, level Level, contextFields ...interface{}) {
 	switch formatter {
 	case JSONFormatter:
 		logger.SetFormatter(new(logrus.JSONFormatter))
@@ -100,7 +100,7 @@ func withContext(ctx context.Context) *logrus.Entry {
 	for _, f := range ctxFields {
 		val := ctx.Value(f)
 		if val != nil {
-			fields[f] = val.(string)
+			fields[fmt.Sprintf("%v", f)] = val.(string)
 		}
 	}
 	return logger.WithFields(fields)

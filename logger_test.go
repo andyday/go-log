@@ -44,7 +44,7 @@ func TestLogging(t *testing.T) {
 	ctx = context.WithValue(ctx, key("requestId"), "request-id")
 	ctx = context.WithValue(ctx, key("userId"), "user-id")
 
-	Init(SimpleFormatter, logrus.DebugLevel, "requestId", "userId")
+	Init(SimpleFormatter, logrus.DebugLevel, key("requestId"), key("userId"))
 	Debug(ctx, "Debug Message 1")
 	Debugf(ctx, "Debug Message %d", 2)
 	Info(ctx, "Informational Message 1")
@@ -54,7 +54,7 @@ func TestLogging(t *testing.T) {
 	Error(ctx, "Error Message 1")
 	Errorf(ctx, "Error Message %d", 2)
 
-	Init(TextFormatter, logrus.InfoLevel, "requestId", "userId")
+	Init(TextFormatter, logrus.InfoLevel, key("requestId"), key("userId"))
 	Info(ctx, "Informational Message 1")
 	Info(ctx, "Informational Message 2", Field("field1", "value1"))
 	Infof(ctx, "Informational Message %d", 3)
@@ -63,7 +63,7 @@ func TestLogging(t *testing.T) {
 	Error(ctx, "Error Message 1")
 	Errorf(ctx, "Error Message %d", 2)
 
-	Init(JSONFormatter, logrus.DebugLevel, "requestId", "userId")
+	Init(JSONFormatter, logrus.DebugLevel, key("requestId"), key("userId"))
 	Debug(ctx, "Debug Message 1")
 	Debugf(ctx, "Debug Message %d", 2)
 	Info(ctx, "Informational Message 1")
@@ -75,7 +75,7 @@ func TestLogging(t *testing.T) {
 	Errorf(ctx, "Error Message %d", 2)
 
 	ctx = context.TODO()
-	Init(JSONFormatter, logrus.InfoLevel, "requestId", "userId")
+	Init(JSONFormatter, logrus.InfoLevel, key("requestId"), key("userId"))
 	Info(ctx, "Informational Message 1")
 	Infof(ctx, "Informational Message %d", 2)
 	Warn(ctx, "Warning Message 1")
