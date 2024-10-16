@@ -82,6 +82,18 @@ func FormatterFromName(name string) (f Formatter) {
 	return JSONFormatter
 }
 
+func SetLevel(level Level) {
+	logger.SetLevel(level)
+}
+
+func GetLevel() Level {
+	return logger.GetLevel()
+}
+
+func IsLevelEnabled(level Level) bool {
+	return logger.IsLevelEnabled(level)
+}
+
 func Init(formatter Formatter, level Level, contextFields ...interface{}) {
 	switch formatter {
 	case JSONFormatter:
